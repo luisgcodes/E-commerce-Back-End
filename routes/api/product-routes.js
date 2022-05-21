@@ -5,8 +5,15 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 
 // get all products
 router.get('/', (req, res) => {
-  // find all products
-  // be sure to include its associated Category and Tag data
+  // find all products & include the category and tag
+  try {
+    const getProducts = await Product.findAll({
+      include: [Category, Tag]
+    });
+    res.status(202).json(getProducts);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 // get one product
