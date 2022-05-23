@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const res = require('express/lib/response');
+// const res = require('express/lib/response');
 const { Tag, Product, ProductTag } = require('../../models');
 
 // The `/api/tags` endpoint
@@ -8,12 +8,12 @@ router.get('/', async (req, res) => {
   // find all tags
   // be sure to include its associated Product data
   try {
-    const allTags = await Tag.findAll({
+    const tagData = await Tag.findAll({
       include: [{model: Product}],
     });
-    res.send(202).json(allTags);
+    res.send(202).json(tagData);
   } catch (err) {
-    res.send(500).json(err);
+    res.status(500).json(err);
   }
 });
 
